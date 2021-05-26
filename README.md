@@ -3,7 +3,7 @@ A Instagram replica made using Android Studio
 - RapidApi Instagram API is being used inside the application 
 
 ## Testing
-For testing the application you can directly download the [application]("https://github.com/kartikeysaran/Instagram-Replica/blob/master/app/release/app-release.apk") inside the app/release folder
+For testing the application you can directly download the [application]("https://github.com/kartikeysaran/Instagram-Replica/blob/master/app/release/") inside the app/release folder
 
 ## Setup
 Prerequestives - Android Studio
