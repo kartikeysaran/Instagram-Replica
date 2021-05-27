@@ -48,9 +48,6 @@ public class HomeFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-
-
-
         return root;
     }
 

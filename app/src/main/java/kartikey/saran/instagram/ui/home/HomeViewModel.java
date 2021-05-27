@@ -45,7 +45,7 @@ public class HomeViewModel extends ViewModel {
         Request request = new Request.Builder()
                 .url("https://instagram47.p.rapidapi.com/user_posts?username=taneja.gaurav")
                 .get()
-                .header("x-rapidapi-key", "3cda199ee2msh551f9c12dd4f68ap107863jsn3ba325dcc77c")
+                .header("x-rapidapi-key", "bc5f19866fmsh79f87c0b6e8528dp10b8a8jsncc1be7f47585")
                 .header("x-rapidapi-host", "instagram47.p.rapidapi.com")
                 .build();
 
@@ -87,7 +87,7 @@ public class HomeViewModel extends ViewModel {
                     String commentUsername = object.getJSONObject("comments").getJSONObject(0).getJSONObject("user").getString("username");
 
                      */
-                    int id = object.getInt("id");
+                    String id = object.getString("id");
                     boolean liked = object.getBoolean("has_liked");
                     int mediaType = object.getInt("media_type");
                     String postUrl = null;

@@ -16,9 +16,9 @@ public class Post {
     private boolean verified;
     private int mediaType;
     private int height;
-    private int id;
+    private String id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -35,7 +35,7 @@ public class Post {
     private int width;
 
     public Post(String username, String name, String postUrl, boolean liked, String profileUrl, String caption, String selectedComments,
-                String noOfComments, String noOfLikes, String commentUsername, boolean verified, int mediaType, int width, int height, int id) {
+                String noOfComments, String noOfLikes, String commentUsername, boolean verified, int mediaType, int width, int height, String id) {
 
         this.username = username;
         this.id = id;

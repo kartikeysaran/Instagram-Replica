@@ -6,21 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".PostDetail">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/postDetail_progress"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        >
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/postDetail_cL_lL_holder"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -136,10 +142,9 @@
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/postDetail_txtView_caption"
-                android:gravity="center"
                 android:layout_marginLeft="5dp"
                 android:textAlignment="viewStart"
                 android:text="username Hey CheckOut my new Pair of Socks"
@@ -152,15 +157,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/postDetail_txtView_comments"
-                android:text="Hi"
+                android:text="Loading Comments...."
+                android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:textAlignment="viewStart"
                 tools:ignore="RtlCompat"/>
 
         </LinearLayout>
 
-
-
-
     </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

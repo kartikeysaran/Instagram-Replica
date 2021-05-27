@@ -1,6 +1,9 @@
 package kartikey.saran.instagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +13,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kartikey.saran.instagram.Adapters.PostAdapter;
+import kartikey.saran.instagram.Models.Post;
+import kartikey.saran.instagram.ui.home.HomeViewModel;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -34,23 +41,23 @@ import okhttp3.Response;
 public class PostDetail extends AppCompatActivity {
 
     List<String> comments;
+    private PostDetailViewModel PostDetailViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
+
+        PostDetailViewModel = new ViewModelProvider(this).get(PostDetailViewModel.class);
         TextView textView = findViewById(R.id.postDetail_txtView_comments);
-        int id = getIntent().getIntExtra("id",0);
+        String id = getIntent().getStringExtra("id");
         String postUrl = getIntent().getStringExtra("url");
         String postLikes = getIntent().getStringExtra("likes");
         String username = getIntent().getStringExtra("username");
         String caption = getIntent().getStringExtra("caption");
         String profileUrl = getIntent().getStringExtra("profile");
 
-
-
-
-        if(id == 0) {
+        if(id.length() == 0) {
             finish();
         } else {
             //Can pass the id show that particular post comments
@@ -61,54 +68,21 @@ public class PostDetail extends AppCompatActivity {
             ((TextView) findViewById(R.id.postDetail_txtView_profile_Username)).setText(Html.fromHtml("<b>"+username+"</b>"));
             ((TextView) findViewById(R.id.postDetail_txtView_noOfLikes)).setText(Html.fromHtml("<b>"+username+"</b>"+caption));
 
-            loadComments();
-            for(String s : comments) {
-                textView.append(Html.fromHtml(s)+"\n");
-            }
-
-        }
-    }
-    private void loadComments() {
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("https://instagram47.p.rapidapi.com/post_comments?postid=2435143128484144113")
-                .get()
-                .addHeader("x-rapidapi-key", "3cda199ee2msh551f9c12dd4f68ap107863jsn3ba325dcc77c")
-                .addHeader("x-rapidapi-host", "instagram47.p.rapidapi.com")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("debugg", e.getMessage());
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try {
-                    loadData(new JSONObject(response.body().string()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            PostDetailViewModel.loadComments();
+            PostDetailViewModel.getComments().observe(this, new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    textView.setText("");
+                    for(String s:strings) {
+                        textView.append(Html.fromHtml(s) +"\n");
+                    }
+                    findViewById(R.id.postDetail_progress).setVisibility(View.GONE);
                 }
-            }
-        });
-    }
+            });
 
-    private void loadData(JSONObject json) {
-        Log.e("JSON Body Comment", json.toString());
-        comments = new ArrayList<>();
-        try{
-            JSONArray commentsArray = json.getJSONArray("comments");
-            for(int i = 0; i<commentsArray.length();i++) {
-                JSONObject user = commentsArray.getJSONObject(i).getJSONObject("user");
-                String username = user.getString("username");
-                String comment = commentsArray.getJSONObject(i).getString("text");
-                comments.add("<b>"+username+"</b>"+comment);
-            }
-        } catch (JSONException e) {
-            Log.e("debugg", e.getMessage());
         }
     }
+
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
@@ -134,4 +108,5 @@ public class PostDetail extends AppCompatActivity {
             bmImage.setImageBitmap(result);
         }
     }
+
 }
