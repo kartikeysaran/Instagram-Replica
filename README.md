@@ -1,4 +1,4 @@
-# <img src="https://image.flaticon.com/icons/png/512/174/174855.png" width="50" height ="50"/> InstagramReplica
+# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" width="50" height ="50"/> InstagramReplica
 A Instagram replica made using Android Studio
 - RapidApi Instagram API is being used inside the application 
 
